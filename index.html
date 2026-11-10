@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="REİM Hikâye - Özgün kısa hikâyeler ve dünyalar.">
-    <title>REİM Hikâye</title>
+    <meta name="description" content="REİM Hikâye - Özgün kısa hikâyeler, gizem, bilim kurgu ve fantastik dünyalar.">
+    <title>REİM Hikâye | Özgün Öyküler ve Dünyalar</title>
     <style>
         :root {
             --bg: #f8f5f0;
@@ -22,268 +22,108 @@
             --accent: #f59e0b;
             --border: #334155;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: Georgia, serif;
-            line-height: 1.8;
-            transition: 0.3s;
-        }
-        header {
-            background: var(--card);
-            border-bottom: 1px solid var(--border);
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-            font-family: sans-serif;
-        }
-        .theme-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1.2rem;
-        }
-        #continue-box {
-            display: none;
-            background: var(--card);
-            border: 2px solid var(--accent);
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1.5rem;
-            justify-content: space-between;
-            align-items: center;
-            font-family: sans-serif;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .continue-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .intro {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            background: var(--card);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 0.5rem 1.1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: sans-serif;
-        }
-        .filter-btn.active {
-            background: var(--accent);
-            color: #fff;
-        }
-        .story-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
-            cursor: pointer;
-        }
-        .story-card:hover {
-            border-color: var(--accent);
-        }
-        .story-meta {
-            font-family: sans-serif;
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.4rem;
-        }
-        #reader-view {
-            display: none;
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-        .back-btn {
-            background: var(--border);
-            border: none;
-            color: var(--text);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-        #reader-content p {
-            margin-bottom: 1.2rem;
-            font-size: 1.15rem;
-        }
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-            font-family: sans-serif;
-        }
-        .page-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .page-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--muted);
-            font-family: sans-serif;
-            font-size: 0.9rem;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Georgia', serif; line-height: 1.8; transition: 0.3s; }
+        header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); font-family: 'Segoe UI', sans-serif; }
+        .theme-btn { background: var(--accent); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-family: 'Segoe UI', sans-serif; font-weight: 600; }
+        .container { max-width: 850px; margin: 2.5rem auto; padding: 0 1.5rem; }
+        .intro { text-align: center; margin-bottom: 2.5rem; }
+        .intro h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .intro p { color: var(--muted); font-family: 'Segoe UI', sans-serif; }
+        .filters { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .filter-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .story-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; margin-bottom: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .story-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .story-meta { font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: 0.4rem; }
+        .story-card h2 { font-size: 1.5rem; margin-bottom: 0.6rem; }
+        .story-card p { color: var(--muted); font-size: 1rem; }
+        #reader-view { display: none; background: var(--card); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); }
+        .back-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1.5rem; font-family: 'Segoe UI', sans-serif; }
+        #reader-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        #reader-meta { color: var(--accent); font-family: 'Segoe UI', sans-serif; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        #reader-content p { margin-bottom: 1.2rem; font-size: 1.15rem; }
+        footer { text-align: center; padding: 2rem; color: var(--muted); font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo">📖 REİM Hikâye</div>
-        <button type="button" class="theme-btn" id="themeBtn">🌙 Gece Modu</button>
+        <button class="theme-btn" onclick="toggleTheme()">🌙 Gece Modu</button>
     </header>
-
     <div class="container">
         <div id="list-view">
-            <div id="continue-box">
-                <div>
-                    <small style="color:var(--accent); font-weight:bold;">🔖 KALDIĞIN YERDEN DEVAM ET</small><br>
-                    <strong id="continue-title"></strong>
-                </div>
-                <button type="button" class="continue-btn" id="continueActionBtn">Devam Et →</button>
-            </div>
-
             <div class="intro">
                 <h1>Kelimelerin Açtığı Yeni Dünyalar</h1>
-                <p>REİM Hikâye arşivine hoş geldin.</p>
+                <p>REİM Hikâye arşivine hoş geldin. Okumak istediğin hikâyeyi seç.</p>
             </div>
-
             <div class="filters">
-                <button type="button" class="filter-btn active" data-cat="Tümü">Tümü</button>
-                <button type="button" class="filter-btn" data-cat="Bilim Kurgu">Bilim Kurgu</button>
-                <button type="button" class="filter-btn" data-cat="Gizem">Gizem</button>
-                <button type="button" class="filter-btn" data-cat="Fantastik">Fantastik</button>
+                <button class="filter-btn active" onclick="filterStories('Tümü', this)">Tümü</button>
+                <button class="filter-btn" onclick="filterStories('Bilim Kurgu', this)">Bilim Kurgu</button>
+                <button class="filter-btn" onclick="filterStories('Gizem', this)">Gizem</button>
+                <button class="filter-btn" onclick="filterStories('Fantastik', this)">Fantastik</button>
             </div>
-
             <div id="stories-container"></div>
         </div>
-
         <div id="reader-view">
-            <button type="button" class="back-btn" id="backBtn">← Tüm Hikâyelere Dön</button>
-            <div id="reader-meta" style="color:var(--accent); font-family:sans-serif; font-size:0.9rem; margin-bottom:0.5rem;"></div>
-            <h1 id="reader-title" style="margin-bottom:1.5rem;"></h1>
+            <button class="back-btn" onclick="closeReader()">← Tüm Hikâyelere Dön</button>
+            <div id="reader-meta"></div>
+            <h1 id="reader-title"></h1>
             <div id="reader-content"></div>
-            <div class="pagination">
-                <button type="button" class="page-btn" id="prevBtn">← Önceki Sayfa</button>
-                <span id="page-indicator" style="font-weight:bold;">Sayfa 1 / 1</span>
-                <button type="button" class="page-btn" id="nextBtn">Sonraki Sayfa →</button>
-            </div>
         </div>
     </div>
-
-    <footer>REİM Hikâye © 2026</footer>
-
+    <footer>REİM Hikâye © 2026 • Tüm Hakları Saklıdır.</footer>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const stories = [
-                {
-                    id: 1,
-                    title: "İlk Adım: Boş Sayfa",
-                    category: "Gizem",
-                    summary: "Masanın üzerinde duran eski bir defterin ilk sayfasının kendiliğinden dolmasıyla başlayan gizem...",
-                    pages: [
-                        [
-                            "SAYFA 1 — Yağmurlu bir Kasım akşamıydı. Pencereden süzülen sokak lambasının ışığı masaya düşüyordu.",
-                            "Deri kaplı defter yıllardır boştu. Ancak o gece ilk satırda tek bir cümle belirdi: Hikâyeyi yazmaya hazır mısın?"
-                        ],
-                        [
-                            "SAYFA 2 — Sayfayı çevirdiğinde mürekkebin hâlâ ıslak olduğunu fark etti. Sanki biri saniyeler önce buradaydı.",
-                            "İkinci sayfada artık kendi adı yazıyordu. Bir sonraki adımda gerçek hikâyemizi buraya ekleyeceğiz!"
-                        ]
-                    ]
-                }
-            ];
-
-            let currentStory = null;
-            let currentPageIndex = 0;
-
-            function getBookmark() {
-                try {
-                    return JSON.parse(localStorage.getItem("reim_bookmark"));
-                } catch (e) {
-                    return null;
-                }
+        const stories = [
+            {
+                id: 1,
+                title: "İlk Adım: Boş Sayfa",
+                category: "Gizem",
+                readTime: "1 dk okuma",
+                summary: "Her şey, masanın üzerinde duran eski bir defterin ilk sayfasının kendiliğinden dolmasıyla başladı...",
+                content: [
+                    "Yağmurlu bir Kasım akşamıydı. Pencereden süzülen sokak lambasının sarı ışığı, odadaki tek ahşap masanın üzerine düşüyordu.",
+                    "Masanın ortasında duran deri kaplı defter yıllardır boştu. Ancak o gece ilk satırda tek bir cümle belirdi: 'Hikâyeyi yazmaya hazır mısın?'"
+                ]
             }
+        ];
 
-            function setBookmark(storyId, pageIndex) {
-                try {
-                    localStorage.setItem("reim_bookmark", JSON.stringify({ storyId: storyId, pageIndex: pageIndex }));
-                } catch (e) {}
-            }
-
-            function checkBookmark() {
-                const saved = getBookmark();
-                const box = document.getElementById("continue-box");
-                if (saved) {
-                    const story = stories.find(function(s) { return s.id === saved.storyId; });
-                    if (story) {
-                        box.style.display = "flex";
-                        document.getElementById("continue-title").textContent = story.title + " (Sayfa " + (saved.pageIndex + 1) + ")";
-                        document.getElementById("continueActionBtn").onclick = function() {
-                            openReader(story, saved.pageIndex);
-                        };
-                    }
-                }
-            }
-
-            function renderStories(category) {
-                const container = document.getElementById("stories-container");
-                container.innerHTML = "";
-                const saved = getBookmark();
-                const filtered = (category === "Tümü") ? stories : stories.filter(function(s) { return s.category === category; });
-
-                filtered.forEach(function(story) {
+        function renderStories(category = 'Tümü') {
+            const container = document.getElementById('stories-container');
+            container.innerHTML = '';
+            const filtered = category === 'Tümü' ? stories : stories.filter(s => s.category === category);
+            filtered.forEach(story => {
+                const card = document.createElement('div');
+                card.className = 'story-card';
+                card.onclick = () => openReader(story);
+                card.innerHTML = `<div class="story-meta">${story.category} • ${story.readTime}</div><h2>${story.title}</h2><p>${story.summary}</p>`;
+                container.appendChild(card);
+            });
+        }
+        function filterStories(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderStories(cat);
+        }
+        function openReader(story) {
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('reader-view').style.display = 'block';
+            document.getElementById('reader-meta').innerText = `${story.category} • ${story.readTime}`;
+            document.getElementById('reader-title').innerText = story.title;
+            document.getElementById('reader-content').innerHTML = story.content.map(p => `<p>${p}</p>`).join('');
+            window.scrollTo(0, 0);
+        }
+        function closeReader() {
+            document.getElementById('reader-view').style.display = 'none';
+            document.getElementById('list-view').style.display = 'block';
+        }
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const btn = document.querySelector('.theme-btn');
+            btn.innerText = document.body.classList.contains('dark') ? '☀️ Gündüz Modu' : '🌙 Gece Modu';
+        }
+        renderStories();
+    </script>
+</body>
+</html>
