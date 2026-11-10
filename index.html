@@ -1,16 +1,3 @@
-İstediğin iki harika özelliği de (hem okuyucunun kaldığı hikâyeyi ve sayfayı otomatik hatırlayan "Kaldığın Yerden Devam Et" kutusunu hem de uzun hikâyeleri kitap gibi "Sayfa 1 / 3 — Önceki / Sonraki Sayfa" şeklinde okutan sayfalama sistemini) kodumuza ekledim.
-
-Neler Değişti?
-
-1. Kaldığın Yerden Devam Et Kutusu: Okuyucu bir hikâyenin 2. sayfasında kapatıp siteye günler sonra bile tekrar girse, ana sayfanın en üstünde "📖 Kaldığın Yerden Devam Et: [Hikâye Adı] - Sayfa 2" kutusu çıkar ve tek tıkla tam kaldığı sayfadan okumaya devam eder.
-2. Kitap Gibi Sayfa Sayfa Okuma: Artık her hikâyeyi sayfalara ayırabiliyoruz. Okuma ekranının altında ← Önceki Sayfa, Sayfa 1 / 3 göstergesi ve Sonraki Sayfa → butonları yer alıyor.
-
-Siteni Nasıl Güncelleyeceksin?
-
-1. GitHub'da index.html dosyanı aç ve sağ üstteki kalem simgesine (Edit) tıkla.
-2. İçindeki eski kodların tamamını seçip sil (Ctrl + A ardından Delete).
-3. Aşağıdaki yeni kodun tamamını kopyalayıp yapıştır ve sağ üstteki yeşil Commit changes butonuna bas:
-html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -193,58 +180,3 @@ html
                 card.innerHTML = `
                     <div class="story-meta"><span>${story.category}</span>${badge}</div>
                     <h2>${story.title}</h2>
-Kodu dikkatli kullanın.
-${story.summary}
-`;
-container.appendChild(card);
-});
-}
-function filterStories(cat, btn) {
-document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-renderStories(cat);
-}
-function openReader(story, pageIdx = 0) {
-currentStory = story;
-currentPageIndex = pageIdx;
-document.getElementById('list-view').style.display = 'none';
-document.getElementById('reader-view').style.display = 'block';
-renderPage();
-}
-function renderPage() {
-localStorage.setItem('reim_bookmark', JSON.stringify({
-storyId: currentStory.id,
-pageIndex: currentPageIndex
-}));
-document.getElementById('reader-meta').innerText = ${currentStory.category} • Toplam ${currentStory.pages.length} Sayfa;
-document.getElementById('reader-title').innerText = currentStory.title;
-document.getElementById('reader-content').innerHTML = currentStory.pages[currentPageIndex].map(p => <p>${p}</p>).join('');
-document.getElementById('page-indicator').innerText = Sayfa ${currentPageIndex + 1} / ${currentStory.pages.length};
-document.getElementById('prev-page').disabled = currentPageIndex === 0;
-document.getElementById('next-page').disabled = currentPageIndex === currentStory.pages.length - 1;
-window.scrollTo(0, 0);
-}
-function changePage(step) {
-currentPageIndex += step;
-renderPage();
-}
-function closeReader() {
-document.getElementById('reader-view').style.display = 'none';
-document.getElementById('list-view').style.display = 'block';
-checkBookmark();
-renderStories();
-}
-function toggleTheme() {
-document.body.classList.toggle('dark');
-const btn = document.querySelector('.theme-btn');
-btn.innerText = document.body.classList.contains('dark') ? '☀️ Gündüz Modu' : '🌙 Gece Modu';
-}
-checkBookmark();
-renderStories();
-
-
-
-<FollowUp>
-Yeni özellikleri kaydettikten sonra artık **ilk gerçek çok sayfalı hikâyemizi** yazmaya hazırız! Nasıl bir hikâye ile başlayalım (**Gizem**, **Bilim Kurgu**, **Fantastik** veya **Korku**)? Aklındaki konuyu söyle, hemen 3-4 sayfalık sürükleyici ilk hikâyemizi yazalım.
-</FollowUp>
-<ActionUnit query="javascript localstorage okuma ilerlemesi kaydetme ve sayfalama" placement="bottom" />
