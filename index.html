@@ -11,18 +11,19 @@ body.dark { --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --muted: #94a3b8; -
 body { background: var(--bg); color: var(--text); font-family: Georgia, serif; line-height: 1.8; transition: 0.3s; }
 header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; }
 .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); font-family: sans-serif; }
-.theme-btn { background: var(--accent); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.theme-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
 .container { max-width: 800px; margin: 2rem auto; padding: 0 1.2rem; }
 #continue-box { display: none; background: var(--card); border: 2px solid var(--accent); border-radius: 10px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; justify-content: space-between; align-items: center; font-family: sans-serif; }
 .continue-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
 .intro { text-align: center; margin-bottom: 2rem; }
 .filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-.filter-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; font-family: sans-serif; }
+.filter-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 0.5rem 1.1rem; border-radius: 20px; cursor: pointer; font-family: sans-serif; }
 .filter-btn.active { background: var(--accent); color: #fff; }
 .story-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.2rem; cursor: pointer; }
+.story-card:hover { border-color: var(--accent); }
 .story-meta { font-family: sans-serif; font-size: 0.85rem; color: var(--accent); font-weight: bold; display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
 #reader-view { display: none; background: var(--card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); }
-.back-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; }
+.back-btn { background: var(--border); border: none; color: var(--text); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; font-weight: bold; }
 #reader-content p { margin-bottom: 1.2rem; font-size: 1.15rem; }
 .pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: sans-serif; }
 .page-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
@@ -31,119 +32,166 @@ footer { text-align: center; padding: 2rem; color: var(--muted); font-family: sa
 </style>
 </head>
 <body>
+
 <header>
     <div class="logo">📖 REİM Hikâye</div>
-    <button class="theme-btn" onclick="toggleTheme()">🌙 Gece Modu</button>
+    <button type="button" class="theme-btn" id="themeBtn">🌙 Gece Modu</button>
 </header>
+
 <div class="container">
     <div id="list-view">
         <div id="continue-box">
             <div><small style="color:var(--accent);font-weight:bold;">🔖 KALDIĞIN YERDEN DEVAM ET</small><br><strong id="continue-title"></strong></div>
-            <button class="continue-btn" id="continue-action">Devam Et →</button>
+            <button type="button" class="continue-btn" id="continueActionBtn">Devam Et →</button>
         </div>
+
         <div class="intro">
             <h1>Kelimelerin Açtığı Yeni Dünyalar</h1>
             <p>REİM Hikâye arşivine hoş geldin.</p>
         </div>
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterStories('Tümü', this)">Tümü</button>
-            <button class="filter-btn" onclick="filterStories('Bilim Kurgu', this)">Bilim Kurgu</button>
-            <button class="filter-btn" onclick="filterStories('Gizem', this)">Gizem</button>
-            <button class="filter-btn" onclick="filterStories('Fantastik', this)">Fantastik</button>
+
+        <div class="filters" id="filterBar">
+            <button type="button" class="filter-btn active" data-cat="Tümü">Tümü</button>
+            <button type="button" class="filter-btn" data-cat="Bilim Kurgu">Bilim Kurgu</button>
+            <button type="button" class="filter-btn" data-cat="Gizem">Gizem</button>
+            <button type="button" class="filter-btn" data-cat="Fantastik">Fantastik</button>
         </div>
+
         <div id="stories-container"></div>
     </div>
+
     <div id="reader-view">
-        <button class="back-btn" onclick="closeReader()">← Tüm Hikâyelere Dön</button>
+        <button type="button" class="back-btn" id="backBtn">← Tüm Hikâyelere Dön</button>
         <div id="reader-meta" style="color:var(--accent);font-family:sans-serif;font-size:0.9rem;margin-bottom:0.5rem;"></div>
         <h1 id="reader-title" style="margin-bottom:1.5rem;"></h1>
         <div id="reader-content"></div>
         <div class="pagination">
-            <button class="page-btn" id="prev-page" onclick="changePage(-1)">← Önceki Sayfa</button>
+            <button type="button" class="page-btn" id="prevBtn">← Önceki Sayfa</button>
             <span id="page-indicator" style="font-weight:bold;">Sayfa 1 / 1</span>
-            <button class="page-btn" id="next-page" onclick="changePage(1)">Sonraki Sayfa →</button>
+            <button type="button" class="page-btn" id="nextBtn">Sonraki Sayfa →</button>
         </div>
     </div>
 </div>
-<footer>REİM Hikâye © 2026</footer>
-<script>
-const stories = [
-    {
-        id: 1,
-        title: "İlk Adım: Boş Sayfa",
-        category: "Gizem",
-        summary: "Masanın üzerinde duran eski bir defterin ilk sayfasının kendiliğinden dolmasıyla başlayan gizem...",
-        pages: [
-            ["SAYFA 1 — Yağmurlu bir Kasım akşamıydı. Pencereden süzülen sokak lambasının ışığı masaya düşüyordu.", "Deri kaplı defter yıllardır boştu. Ancak o gece ilk satırda tek bir cümle belirdi: 'Hikâyeyi yazmaya hazır mısın?'"],
-            ["SAYFA 2 — Sayfayı çevirdiğinde mürekkebin hâlâ ıslak olduğunu fark etti. Sanki biri saniyeler önce buradaydı.", "İkinci sayfada artık kendi adı yazıyordu. Bir sonraki adımda gerçek hikâyemizi buraya ekleyeceğiz!"]
-        ]
-    }
-];
-let currentStory = null;
-let currentPageIndex = 0;
 
-function checkBookmark() {
-    const saved = JSON.parse(localStorage.getItem('reim_bookmark'));
-    const box = document.getElementById('continue-box');
-    if (saved) {
-        const story = stories.find(s => s.id === saved.storyId);
-        if (story) {
-            box.style.display = 'flex';
-            document.getElementById('continue-title').innerText = story.title + " (Sayfa " + (saved.pageIndex + 1) + ")";
-            document.getElementById('continue-action').onclick = () => openReader(story, saved.pageIndex);
+<footer>REİM Hikâye © 2026</footer>
+
+<script>
+window.addEventListener("DOMContentLoaded", function() {
+    const stories = [
+        {
+            id: 1,
+            title: "İlk Adım: Boş Sayfa",
+            category: "Gizem",
+            summary: "Masanın üzerinde duran eski bir defterin ilk sayfasının kendiliğinden dolmasıyla başlayan gizem...",
+            pages: [
+                [
+                    "SAYFA 1 — Yağmurlu bir Kasım akşamıydı. Pencereden süzülen sokak lambasının ışığı masaya düşüyordu.",
+                    "Deri kaplı defter yıllardır boştu. Ancak o gece ilk satırda tek bir cümle belirdi: Hikâyeyi yazmaya hazır mısın?"
+                ],
+                [
+                    "SAYFA 2 — Sayfayı çevirdiğinde mürekkebin hâlâ ıslak olduğunu fark etti. Sanki biri saniyeler önce buradaydı.",
+                    "İkinci sayfada artık kendi adı yazıyordu. Bir sonraki adımda gerçek hikâyemizi buraya ekleyeceğiz!"
+                ]
+            ]
+        }
+    ];
+
+    let currentStory = null;
+    let currentPageIndex = 0;
+
+    function getBookmark() {
+        try {
+            return JSON.parse(localStorage.getItem("reim_bookmark"));
+        } catch (e) {
+            return null;
         }
     }
-}
-function renderStories(category = 'Tümü') {
-    const container = document.getElementById('stories-container');
-    container.innerHTML = '';
-    const saved = JSON.parse(localStorage.getItem('reim_bookmark'));
-    const filtered = category === 'Tümü' ? stories : stories.filter(s => s.category === category);
-    filtered.forEach(story => {
-        const isBookmarked = saved && saved.storyId === story.id;
-        const badge = isBookmarked ? "📌 Sayfa " + (saved.pageIndex + 1) + "'de kaldın" : story.pages.length + " Sayfa";
-        const card = document.createElement('div');
-        card.className = 'story-card';
-        card.onclick = () => openReader(story, isBookmarked ? saved.pageIndex : 0);
-        card.innerHTML = `<div class="story-meta"><span>${story.category}</span><span>${badge}</span></div><h2>${story.title}</h2><p>${story.summary}</p>`;
-        container.appendChild(card);
+
+    function setBookmark(storyId, pageIndex) {
+        try {
+            localStorage.setItem("reim_bookmark", JSON.stringify({ storyId: storyId, pageIndex: pageIndex }));
+        } catch (e) {}
+    }
+
+    function checkBookmark() {
+        const saved = getBookmark();
+        const box = document.getElementById("continue-box");
+        if (saved) {
+            const story = stories.find(function(s) { return s.id === saved.storyId; });
+            if (story) {
+                box.style.display = "flex";
+                document.getElementById("continue-title").textContent = story.title + " (Sayfa " + (saved.pageIndex + 1) + ")";
+                document.getElementById("continueActionBtn").onclick = function() {
+                    openReader(story, saved.pageIndex);
+                };
+            }
+        }
+    }
+
+    function renderStories(category) {
+        const container = document.getElementById("stories-container");
+        container.innerHTML = "";
+        const saved = getBookmark();
+        const filtered = (category === "Tümü") ? stories : stories.filter(function(s) { return s.category === category; });
+
+        filtered.forEach(function(story) {
+            const isBookmarked = saved && saved.storyId === story.id;
+            const badgeText = isBookmarked ? ("📌 Sayfa " + (saved.pageIndex + 1) + " - Kaldığın Yer") : (story.pages.length + " Sayfa");
+            
+            const card = document.createElement("div");
+            card.className = "story-card";
+            
+            const meta = document.createElement("div");
+            meta.className = "story-meta";
+            meta.innerHTML = "<span>" + story.category + "</span><span>" + badgeText + "</span>";
+            
+            const title = document.createElement("h2");
+            title.textContent = story.title;
+            
+            const summary = document.createElement("p");
+            summary.textContent = story.summary;
+            
+            card.appendChild(meta);
+            card.appendChild(title);
+            card.appendChild(summary);
+            
+            card.addEventListener("click", function() {
+                openReader(story, isBookmarked ? saved.pageIndex : 0);
+            });
+            
+            container.appendChild(card);
+        });
+    }
+
+    function openReader(story, pageIdx) {
+        currentStory = story;
+        currentPageIndex = pageIdx || 0;
+        document.getElementById("list-view").style.display = "none";
+        document.getElementById("reader-view").style.display = "block";
+        renderPage();
+    }
+
+    function renderPage() {
+        setBookmark(currentStory.id, currentPageIndex);
+        document.getElementById("reader-meta").textContent = currentStory.category + " • Toplam " + currentStory.pages.length + " Sayfa";
+        document.getElementById("reader-title").textContent = currentStory.title;
+        
+        const contentDiv = document.getElementById("reader-content");
+        contentDiv.innerHTML = "";
+        currentStory.pages[currentPageIndex].forEach(function(paragraf) {
+            const p = document.createElement("p");
+            p.textContent = paragraf;
+            contentDiv.appendChild(p);
+        });
+
+        document.getElementById("page-indicator").textContent = "Sayfa " + (currentPageIndex + 1) + " / " + currentStory.pages.length;
+        document.getElementById("prevBtn").disabled = (currentPageIndex === 0);
+        document.getElementById("nextBtn").disabled = (currentPageIndex === currentStory.pages.length - 1);
+        window.scrollTo(0, 0);
+    }
+
+    document.getElementById("themeBtn").addEventListener("click", function() {
+        document.body.classList.toggle("dark");
+        this.textContent = document.body.classList.contains("dark") ? "☀️ Gündüz Modu" : "🌙 Gece Modu";
     });
-}
-function filterStories(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderStories(cat);
-}
-function openReader(story, pageIdx = 0) {
-    currentStory = story;
-    currentPageIndex = pageIdx;
-    document.getElementById('list-view').style.display = 'none';
-    document.getElementById('reader-view').style.display = 'block';
-    renderPage();
-}
-function renderPage() {
-    localStorage.setItem('reim_bookmark', JSON.stringify({ storyId: currentStory.id, pageIndex: currentPageIndex }));
-    document.getElementById('reader-meta').innerText = currentStory.category + " • Toplam " + currentStory.pages.length + " Sayfa";
-    document.getElementById('reader-title').innerText = currentStory.title;
-    document.getElementById('reader-content').innerHTML = currentStory.pages[currentPageIndex].map(p => `<p>${p}</p>`).join('');
-    document.getElementById('page-indicator').innerText = "Sayfa " + (currentPageIndex + 1) + " / " + currentStory.pages.length;
-    document.getElementById('prev-page').disabled = currentPageIndex === 0;
-    document.getElementById('next-page').disabled = currentPageIndex === currentStory.pages.length - 1;
-    window.scrollTo(0, 0);
-}
-function changePage(step) { currentPageIndex += step; renderPage(); }
-function closeReader() {
-    document.getElementById('reader-view').style.display = 'none';
-    document.getElementById('list-view').style.display = 'block';
-    checkBookmark();
-    renderStories();
-}
-function toggleTheme() {
-    document.body.classList.toggle('dark');
-    document.querySelector('.theme-btn').innerText = document.body.classList.contains('dark') ? '☀️ Gündüz Modu' : '🌙 Gece Modu';
-}
-checkBookmark();
-renderStories();
-</script>
-</body>
-</html>
+
