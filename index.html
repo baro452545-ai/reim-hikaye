@@ -1,182 +1,149 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="REİM Hikâye - Özgün kısa hikâyeler, gizem, bilim kurgu ve fantastik dünyalar.">
-    <title>REİM Hikâye | Özgün Öyküler ve Dünyalar</title>
-    <style>
-        :root {
-            --bg: #f8f5f0;
-            --card: #ffffff;
-            --text: #1e293b;
-            --muted: #64748b;
-            --accent: #b45309;
-            --border: #e2e8f0;
-        }
-        body.dark {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-            --accent: #f59e0b;
-            --border: #334155;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Georgia', serif; line-height: 1.8; transition: 0.3s; }
-        header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); font-family: 'Segoe UI', sans-serif; }
-        .theme-btn { background: var(--accent); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-family: 'Segoe UI', sans-serif; font-weight: 600; }
-        .container { max-width: 850px; margin: 2.5rem auto; padding: 0 1.5rem; }
-        
-        /* Kaldığın Yerden Devam Et Kutusu */
-        #continue-box {
-            display: none;
-            background: var(--card);
-            border: 2px solid var(--accent);
-            border-radius: 10px;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 2rem;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .continue-info span { display: block; font-size: 0.85rem; color: var(--accent); font-weight: bold; }
-        .continue-info strong { font-size: 1.1rem; }
-        .continue-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
-
-        .intro { text-align: center; margin-bottom: 2rem; }
-        .intro h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
-        .intro p { color: var(--muted); font-family: 'Segoe UI', sans-serif; }
-        .filters { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
-        .filter-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; }
-        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-        
-        .story-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; margin-bottom: 1.5rem; cursor: pointer; transition: 0.2s; }
-        .story-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-        .story-meta { font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: 0.4rem; display: flex; justify-content: space-between; }
-        .story-card h2 { font-size: 1.5rem; margin-bottom: 0.6rem; }
-        .story-card p { color: var(--muted); font-size: 1rem; }
-        
-        /* Okuma Ekranı ve Sayfalama */
-        #reader-view { display: none; background: var(--card); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); }
-        .back-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1.5rem; font-family: 'Segoe UI', sans-serif; }
-        #reader-title { font-size: 2rem; margin-bottom: 0.5rem; }
-        #reader-meta { color: var(--accent); font-family: 'Segoe UI', sans-serif; margin-bottom: 1.5rem; font-size: 0.9rem; }
-        #reader-content p { margin-bottom: 1.3rem; font-size: 1.15rem; }
-        
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .page-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .page-btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
-        .page-indicator { font-weight: bold; color: var(--muted); }
-
-        footer { text-align: center; padding: 2rem; color: var(--muted); font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REİM Hikâye</title>
+<style>
+:root { --bg: #f8f5f0; --card: #ffffff; --text: #1e293b; --muted: #64748b; --accent: #b45309; --border: #e2e8f0; }
+body.dark { --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --muted: #94a3b8; --accent: #f59e0b; --border: #334155; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: Georgia, serif; line-height: 1.8; transition: 0.3s; }
+header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); font-family: sans-serif; }
+.theme-btn { background: var(--accent); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.container { max-width: 800px; margin: 2rem auto; padding: 0 1.2rem; }
+#continue-box { display: none; background: var(--card); border: 2px solid var(--accent); border-radius: 10px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; justify-content: space-between; align-items: center; font-family: sans-serif; }
+.continue-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.intro { text-align: center; margin-bottom: 2rem; }
+.filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.filter-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; font-family: sans-serif; }
+.filter-btn.active { background: var(--accent); color: #fff; }
+.story-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.2rem; cursor: pointer; }
+.story-meta { font-family: sans-serif; font-size: 0.85rem; color: var(--accent); font-weight: bold; display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+#reader-view { display: none; background: var(--card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); }
+.back-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; }
+#reader-content p { margin-bottom: 1.2rem; font-size: 1.15rem; }
+.pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: sans-serif; }
+.page-btn { background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+footer { text-align: center; padding: 2rem; color: var(--muted); font-family: sans-serif; font-size: 0.9rem; }
+</style>
 </head>
 <body>
-    <header>
-        <div class="logo">📖 REİM Hikâye</div>
-        <button class="theme-btn" onclick="toggleTheme()">🌙 Gece Modu</button>
-    </header>
-    <div class="container">
-        <div id="list-view">
-            <!-- Kaldığın Yerden Devam Et Alanı -->
-            <div id="continue-box">
-                <div class="continue-info">
-                    <span>🔖 KALDIĞIN YERDEN DEVAM ET</span>
-                    <strong id="continue-title"></strong>
-                </div>
-                <button class="continue-btn" id="continue-action">Okumaya Devam Et →</button>
-            </div>
-
-            <div class="intro">
-                <h1>Kelimelerin Açtığı Yeni Dünyalar</h1>
-                <p>REİM Hikâye arşivine hoş geldin. Okumak istediğin hikâyeyi seç.</p>
-            </div>
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterStories('Tümü', this)">Tümü</button>
-                <button class="filter-btn" onclick="filterStories('Bilim Kurgu', this)">Bilim Kurgu</button>
-                <button class="filter-btn" onclick="filterStories('Gizem', this)">Gizem</button>
-                <button class="filter-btn" onclick="filterStories('Fantastik', this)">Fantastik</button>
-            </div>
-            <div id="stories-container"></div>
+<header>
+    <div class="logo">📖 REİM Hikâye</div>
+    <button class="theme-btn" onclick="toggleTheme()">🌙 Gece Modu</button>
+</header>
+<div class="container">
+    <div id="list-view">
+        <div id="continue-box">
+            <div><small style="color:var(--accent);font-weight:bold;">🔖 KALDIĞIN YERDEN DEVAM ET</small><br><strong id="continue-title"></strong></div>
+            <button class="continue-btn" id="continue-action">Devam Et →</button>
         </div>
-
-        <div id="reader-view">
-            <button class="back-btn" onclick="closeReader()">← Tüm Hikâyelere Dön</button>
-            <div id="reader-meta"></div>
-            <h1 id="reader-title"></h1>
-            <div id="reader-content"></div>
-            
-            <!-- Sayfa Geçiş Butonları -->
-            <div class="pagination">
-                <button class="page-btn" id="prev-page" onclick="changePage(-1)">← Önceki Sayfa</button>
-                <span class="page-indicator" id="page-indicator">Sayfa 1 / 1</span>
-                <button class="page-btn" id="next-page" onclick="changePage(1)">Sonraki Sayfa →</button>
-            </div>
+        <div class="intro">
+            <h1>Kelimelerin Açtığı Yeni Dünyalar</h1>
+            <p>REİM Hikâye arşivine hoş geldin.</p>
+        </div>
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterStories('Tümü', this)">Tümü</button>
+            <button class="filter-btn" onclick="filterStories('Bilim Kurgu', this)">Bilim Kurgu</button>
+            <button class="filter-btn" onclick="filterStories('Gizem', this)">Gizem</button>
+            <button class="filter-btn" onclick="filterStories('Fantastik', this)">Fantastik</button>
+        </div>
+        <div id="stories-container"></div>
+    </div>
+    <div id="reader-view">
+        <button class="back-btn" onclick="closeReader()">← Tüm Hikâyelere Dön</button>
+        <div id="reader-meta" style="color:var(--accent);font-family:sans-serif;font-size:0.9rem;margin-bottom:0.5rem;"></div>
+        <h1 id="reader-title" style="margin-bottom:1.5rem;"></h1>
+        <div id="reader-content"></div>
+        <div class="pagination">
+            <button class="page-btn" id="prev-page" onclick="changePage(-1)">← Önceki Sayfa</button>
+            <span id="page-indicator" style="font-weight:bold;">Sayfa 1 / 1</span>
+            <button class="page-btn" id="next-page" onclick="changePage(1)">Sonraki Sayfa →</button>
         </div>
     </div>
-    <footer>REİM Hikâye © 2026 • Tüm Hakları Saklıdır.</footer>
+</div>
+<footer>REİM Hikâye © 2026</footer>
+<script>
+const stories = [
+    {
+        id: 1,
+        title: "İlk Adım: Boş Sayfa",
+        category: "Gizem",
+        summary: "Masanın üzerinde duran eski bir defterin ilk sayfasının kendiliğinden dolmasıyla başlayan gizem...",
+        pages: [
+            ["SAYFA 1 — Yağmurlu bir Kasım akşamıydı. Pencereden süzülen sokak lambasının ışığı masaya düşüyordu.", "Deri kaplı defter yıllardır boştu. Ancak o gece ilk satırda tek bir cümle belirdi: 'Hikâyeyi yazmaya hazır mısın?'"],
+            ["SAYFA 2 — Sayfayı çevirdiğinde mürekkebin hâlâ ıslak olduğunu fark etti. Sanki biri saniyeler önce buradaydı.", "İkinci sayfada artık kendi adı yazıyordu. Bir sonraki adımda gerçek hikâyemizi buraya ekleyeceğiz!"]
+        ]
+    }
+];
+let currentStory = null;
+let currentPageIndex = 0;
 
-    <script>
-        // HİKÂYELERİMİZ (Her hikâyeyi pages dizisi içinde sayfa sayfa ayırıyoruz)
-        const stories = [
-            {
-                id: 1,
-                title: "İlk Adım: Boş Sayfa",
-                category: "Gizem",
-                summary: "Her şey, masanın üzerinde duran eski bir defterin ilk sayfasının kendiliğinden dolmasıyla başladı...",
-                pages: [
-                    [
-                        "SAYFA 1 — Yağmurlu bir Kasım akşamıydı. Pencereden süzülen sokak lambasının sarı ışığı, odadaki tek ahşap masanın üzerine düşüyordu.",
-                        "Masanın ortasında duran deri kaplı defter yıllardır boştu. Ancak o gece ilk satırda tek bir cümle belirdi: 'Hikâyeyi yazmaya hazır mısın?'"
-                    ],
-                    [
-                        "SAYFA 2 — Defterin sayfasını çevirdiğinde mürekkebin hâlâ ıslak olduğunu fark etti. Sanki biri saniyeler önce buradaydı.",
-                        "İkinci sayfada ise artık kendi adı yazıyordu. Bir sonraki adımda seninle kurgulayacağımız gerçek hikâyeyi buraya yerleştireceğiz!"
-                    ]
-                ]
-            }
-        ];
-
-        let currentStory = null;
-        let currentPageIndex = 0;
-
-        function checkBookmark() {
-            const saved = JSON.parse(localStorage.getItem('reim_bookmark'));
-            const box = document.getElementById('continue-box');
-            if (saved) {
-                const story = stories.find(s => s.id === saved.storyId);
-                if (story) {
-                    box.style.display = 'flex';
-                    document.getElementById('continue-title').innerText = `${story.title} (Sayfa ${saved.pageIndex + 1} / ${story.pages.length})`;
-                    document.getElementById('continue-action').onclick = () => openReader(story, saved.pageIndex);
-                }
-            }
+function checkBookmark() {
+    const saved = JSON.parse(localStorage.getItem('reim_bookmark'));
+    const box = document.getElementById('continue-box');
+    if (saved) {
+        const story = stories.find(s => s.id === saved.storyId);
+        if (story) {
+            box.style.display = 'flex';
+            document.getElementById('continue-title').innerText = story.title + " (Sayfa " + (saved.pageIndex + 1) + ")";
+            document.getElementById('continue-action').onclick = () => openReader(story, saved.pageIndex);
         }
-
-        function renderStories(category = 'Tümü') {
-            const container = document.getElementById('stories-container');
-            container.innerHTML = '';
-            const saved = JSON.parse(localStorage.getItem('reim_bookmark'));
-            const filtered = category === 'Tümü' ? stories : stories.filter(s => s.category === category);
-            
-            filtered.forEach(story => {
-                const isBookmarked = saved && saved.storyId === story.id;
-                const badge = isBookmarked ? `<span>📌 Sayfa ${saved.pageIndex + 1}'de kaldın</span>` : `<span>${story.pages.length} Sayfa</span>`;
-                const card = document.createElement('div');
-                card.className = 'story-card';
-                card.onclick = () => openReader(story, isBookmarked ? saved.pageIndex : 0);
-                card.innerHTML = `
-                    <div class="story-meta"><span>${story.category}</span>${badge}</div>
-                    <h2>${story.title}</h2>
+    }
+}
+function renderStories(category = 'Tümü') {
+    const container = document.getElementById('stories-container');
+    container.innerHTML = '';
+    const saved = JSON.parse(localStorage.getItem('reim_bookmark'));
+    const filtered = category === 'Tümü' ? stories : stories.filter(s => s.category === category);
+    filtered.forEach(story => {
+        const isBookmarked = saved && saved.storyId === story.id;
+        const badge = isBookmarked ? "📌 Sayfa " + (saved.pageIndex + 1) + "'de kaldın" : story.pages.length + " Sayfa";
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.onclick = () => openReader(story, isBookmarked ? saved.pageIndex : 0);
+        card.innerHTML = `<div class="story-meta"><span>${story.category}</span><span>${badge}</span></div><h2>${story.title}</h2><p>${story.summary}</p>`;
+        container.appendChild(card);
+    });
+}
+function filterStories(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderStories(cat);
+}
+function openReader(story, pageIdx = 0) {
+    currentStory = story;
+    currentPageIndex = pageIdx;
+    document.getElementById('list-view').style.display = 'none';
+    document.getElementById('reader-view').style.display = 'block';
+    renderPage();
+}
+function renderPage() {
+    localStorage.setItem('reim_bookmark', JSON.stringify({ storyId: currentStory.id, pageIndex: currentPageIndex }));
+    document.getElementById('reader-meta').innerText = currentStory.category + " • Toplam " + currentStory.pages.length + " Sayfa";
+    document.getElementById('reader-title').innerText = currentStory.title;
+    document.getElementById('reader-content').innerHTML = currentStory.pages[currentPageIndex].map(p => `<p>${p}</p>`).join('');
+    document.getElementById('page-indicator').innerText = "Sayfa " + (currentPageIndex + 1) + " / " + currentStory.pages.length;
+    document.getElementById('prev-page').disabled = currentPageIndex === 0;
+    document.getElementById('next-page').disabled = currentPageIndex === currentStory.pages.length - 1;
+    window.scrollTo(0, 0);
+}
+function changePage(step) { currentPageIndex += step; renderPage(); }
+function closeReader() {
+    document.getElementById('reader-view').style.display = 'none';
+    document.getElementById('list-view').style.display = 'block';
+    checkBookmark();
+    renderStories();
+}
+function toggleTheme() {
+    document.body.classList.toggle('dark');
+    document.querySelector('.theme-btn').innerText = document.body.classList.contains('dark') ? '☀️ Gündüz Modu' : '🌙 Gece Modu';
+}
+checkBookmark();
+renderStories();
+</script>
+</body>
+</html>
